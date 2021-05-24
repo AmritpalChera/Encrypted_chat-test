@@ -10,7 +10,9 @@ const DEV_DOMAIN = 'http://localhost:8000';
 const PUB_DOMAIN = '';
 
 
-const socket = io(DEV_DOMAIN);
+const socket = io(DEV_DOMAIN, {
+  withCredentials: true
+});
 
 const AppMain = (props) => {
   return (

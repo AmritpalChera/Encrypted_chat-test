@@ -22,7 +22,15 @@ let server = app.listen(port, () => {
 const io = socket(server, {
     cors: {
         origin: "http://localhost:3000",
-        methods: ["GET", "POST"]
+        methods: ["GET", "POST"],
+        credentials: true,
+        allowedHeaders: [
+            "Access-Control-Allow-Origin",
+            "http://localhost:3000",
+            "Access-Control-Allow-Headers",
+            "x-access-token, Origin, X-Requested-With, Content-Type, Accept",
+            'Access-Control-Allow-Credentials'
+        ]
       }
 });
 // console.log('connected to IO')
