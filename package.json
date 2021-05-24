@@ -1,0 +1,13 @@
+{
+  "name": "encrypted_chat",
+  "version": "1",
+  "main": "index.js",
+  "author": "AmritpalChera <cheraamritpal@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "socket.io": "^4.1.2"
+  }
+}
