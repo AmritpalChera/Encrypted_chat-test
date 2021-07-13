@@ -27,10 +27,12 @@
   }
 }
 .chat {
-  width: 400px;
-  height: 600px;
+  width: 100%;
+  max-width: 400px;
+  height: 100%;
+  max-height: 600px;
   background-color: $greyColor;
-  padding: 1rem;
+  padding: 12px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

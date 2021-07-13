@@ -8,6 +8,10 @@
   align-items: center;
   .right {
     flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
   }
   .left {
     flex: 1;
