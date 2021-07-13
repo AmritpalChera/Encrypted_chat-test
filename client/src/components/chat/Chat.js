@@ -19,7 +19,7 @@ const Chat = (props) => {
     useEffect(() => {
         socket.on('message', (data) => {
             
-            const ans = DoDecrypt(data.text, data.username);
+            const ans = DoDecrypt(data.text, data.username, roomname);
             dispatchProcess(false, ans, data.text);
             // console.log(ans)
             let temp = messages;
