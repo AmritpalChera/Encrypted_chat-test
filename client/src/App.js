@@ -10,7 +10,7 @@ const DEV_DOMAIN = 'http://localhost:8000';
 const PUB_DOMAIN = 'https://encrypted-chat-314720.uk.r.appspot.com';
 
 
-const socket = io(PUB_DOMAIN, {
+const socket = io(DEV_DOMAIN, {
   withCredentials:true
 });
 

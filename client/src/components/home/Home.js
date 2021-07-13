@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./home.scss";
 import { Link } from "react-router-dom";
+import axios from '../../axios'
 
 function Home({ socket }) {
   const [username, setusername] = useState("");
@@ -13,6 +14,20 @@ function Home({ socket }) {
       alert("username and roomname are must !");
     }
   };
+
+  const sendRequest = () => {
+    axios.post('/api/testCall', { name: 'hello' })
+    .then(res => {
+      console.log(res.data)
+    })
+    .catch(err => {
+      console.log(err.response)
+    })
+  }
+
+  useEffect(() => {
+    sendRequest()
+  }, [])
 
   return (
     <div className="homepage">

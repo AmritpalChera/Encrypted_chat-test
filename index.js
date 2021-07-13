@@ -1,9 +1,15 @@
-const express = require ('express')
+const express = require('express')
+const router = express.Router();
 const app = express();
 const socket = require('socket.io')
 const users = require('./server/users')
+const bodyParser = require('body-parser');
+
+
 
 require('./server/startup/cors')(app)
+
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // const color = require('colors')
 const root = require('path').join(__dirname, 'client', 'build')
@@ -11,6 +17,14 @@ app.use(express.static(root));
 app.get("*", (req, res) => {
     res.sendFile('index.html', { root });
 })
+
+router.post('/api/testCall', (req, res) => {
+    console.log(req.body)
+    console.log('Hello')
+    res.send('hi there!')
+})
+
+app.use(router)
 
 const port = process.env.PORT || 8000;
 
