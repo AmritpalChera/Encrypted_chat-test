@@ -1,12 +1,14 @@
 const aes256 = require('aes256')
+const crypto = require('crypto')
+const users = require('../../server/users')
 
-let key = "obvwoqcbv21801f19d0zibcoavwpnq";
-
-export const DoEncrypt = (text) => {
+export const DoEncrypt = (text, roomname) => { 
+    key = users.getRoomKey(roomname);
     var encrypted = aes256.encrypt(key, text);
     return encrypted;
   };
-  export const DoDecrypt = (cipher, username) => {
+  export const DoDecrypt = (cipher, username, roomname) => {
+    key = users.getRoomKey(roomname);
     if (cipher.startsWith("Welcome")) {
       return cipher;
     }
@@ -14,7 +16,7 @@ export const DoEncrypt = (text) => {
     if (cipher.startsWith(username)) {
       return cipher;
     }
-  
+    
     var decrypted = aes256.decrypt(key, cipher);
     return decrypted;
   };
