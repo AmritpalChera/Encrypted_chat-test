@@ -7,11 +7,11 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import io from 'socket.io-client'
 
 const DEV_DOMAIN = 'http://localhost:8000';
-const PUB_DOMAIN = '';
+const PUB_DOMAIN = 'https://encrypted-chat-314720.uk.r.appspot.com';
 
 
-const socket = io(DEV_DOMAIN, {
-  withCredentials: true
+const socket = io(PUB_DOMAIN, {
+  withCredentials:true
 });
 
 const AppMain = (props) => {
@@ -24,9 +24,9 @@ const AppMain = (props) => {
             socket={socket}
           />
         </div>
-        <div className="left">
+        {window.innerWidth > 1000 && <div className="left">
           <Process />
-        </div>
+        </div>}
     </React.Fragment>
   )
 }

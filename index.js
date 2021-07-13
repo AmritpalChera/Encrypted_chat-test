@@ -6,9 +6,13 @@ const users = require('./server/users')
 require('./server/startup/cors')(app)
 
 // const color = require('colors')
+const root = require('path').join(__dirname, 'client', 'build')
+app.use(express.static(root));
+app.get("*", (req, res) => {
+    res.sendFile('index.html', { root });
+})
 
-
-const port = 8000;
+const port = process.env.PORT || 8000;
 
 let server = app.listen(port, () => {
     console.log(
