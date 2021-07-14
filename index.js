@@ -5,8 +5,6 @@ const socket = require('socket.io')
 const users = require('./server/users')
 const bodyParser = require('body-parser');
 
-
-
 require('./server/startup/cors')(app)
 
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -18,10 +16,14 @@ app.get("*", (req, res) => {
     res.sendFile('index.html', { root });
 })
 
-router.post('/api/testCall', (req, res) => {
-    console.log(req.body)
-    console.log('Hello')
-    res.send('hi there!')
+
+router.post('/api/testcall', (req, res) => {
+
+    // room_name = req.params.room;
+    // console.log(room_name);
+    // key = users.getRoomKey(room_name);
+    console.log(req)
+    res.send("key");
 })
 
 app.use(router)
