@@ -3,18 +3,37 @@ import { useDispatch } from 'react-redux';
 import { DoDecrypt, DoEncrypt } from '../../aes';
 import process from '../../redux/action/index';
 import "./chat.scss";
+import axios from '../../axios'
 
 
 const Chat = (props) => {
     const { username, roomname, socket } = props;
     const [text, setText] = useState('');
     const [messages, setMessages] = useState([])
+    const [key, setKey] =useState('')
 
     const dispatch = useDispatch();
 
     const dispatchProcess = (encrypt, msg, cipher) => {
         dispatch(process(encrypt,msg,cipher))
     }
+
+    const getRoomKey = () => {
+        axios.post('/api/getRoomKey', { roomName: roomname })
+        .then(res => {
+            console.log("Data>>", res.data)
+            setKey(res.data.key)
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+      }
+    
+      useEffect(() => {
+        getRoomKey()
+      }, [])
+    
+    console.log("Chat Key>>", key)
     
     useEffect(() => {
         socket.on('message', (data) => {

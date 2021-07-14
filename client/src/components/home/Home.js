@@ -15,19 +15,7 @@ function Home({ socket }) {
     }
   };
 
-  const sendRequest = () => {
-    axios.post('/api/testCall', { name: 'hello' })
-    .then(res => {
-      console.log(res.data)
-    })
-    .catch(err => {
-      console.log(err.response)
-    })
-  }
 
-  useEffect(() => {
-    sendRequest()
-  }, [])
 
   return (
     <div className="homepage">

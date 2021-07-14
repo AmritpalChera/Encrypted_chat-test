@@ -1,13 +1,30 @@
+
 const express = require('express')
-const router = express.Router();
 const app = express();
+const router = express.Router();
+
 const socket = require('socket.io')
 const users = require('./server/users')
+const morgan = require('morgan')
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser')
 
 require('./server/startup/cors')(app)
 
+app.use(morgan('dev'))
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: true }))
+
+router.post('/api/getRoomKey', (req, res) => {
+    console.log(req.body)
+    // computations
+    let toSend= {key: "sample key"}
+   
+    res.status(200).send(toSend);
+})
+
+app.use(router)
 
 // const color = require('colors')
 const root = require('path').join(__dirname, 'client', 'build')
@@ -17,16 +34,7 @@ app.get("*", (req, res) => {
 })
 
 
-router.post('/api/testcall', (req, res) => {
 
-    // room_name = req.params.room;
-    // console.log(room_name);
-    // key = users.getRoomKey(room_name);
-    console.log(req)
-    res.send("key");
-})
-
-app.use(router)
 
 const port = process.env.PORT || 8000;
 
