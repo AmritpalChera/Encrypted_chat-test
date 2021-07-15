@@ -5,12 +5,12 @@ import process from '../../redux/action/index';
 import "./chat.scss";
 import axios from '../../axios'
 
-
+let localKey = ""
 const Chat = (props) => {
     const { username, roomname, socket } = props;
     const [text, setText] = useState('');
     const [messages, setMessages] = useState([])
-    const [key, setKey] =useState('')
+    const [key, setKey] = useState('')
 
     const dispatch = useDispatch();
 
@@ -18,28 +18,27 @@ const Chat = (props) => {
         dispatch(process(encrypt,msg,cipher))
     }
 
-    const getRoomKey = () => {
-        axios.post('/api/getRoomKey', { roomName: roomname })
-        .then(res => {
-            console.log("Data>>", res.data)
-            setKey(res.data.key)
-        })
-        .catch(err => {
-          console.log(err.response)
-        })
-      }
+    // const getRoomKey = () => {
+    //     axios.post('/api/getRoomKey', { roomName: roomname })
+    //     .then(res => {
+    //         console.log("Data>>", res.data)
+    //         localKey = res.data.key
+    //         setKey(res.data.key)
+    //     })
+    //     .catch(err => {
+    //       console.log(err.response)
+    //     })
+    //   }
     
-      useEffect(() => {
-        getRoomKey()
-      }, [])
+    // useEffect(() => {
+    //     getRoomKey()
+    //   }, [])
     
-    
-    useEffect(() => {
-        console.log("Chat Key: ", key)
+    const insertMessage = () =>{
         socket.on('message', (data) => {
-            console.log("Key: ", key)
+            console.log("Key in socket: ", key)
             const ans = DoDecrypt(data.text, data.username, key);
-            dispatchProcess(false, ans, data.text);
+            dispatchProcess(key, ans, data.text);
             // console.log(ans)
             let temp = messages;
             temp.push({
@@ -49,16 +48,36 @@ const Chat = (props) => {
             })
             setMessages([...temp])
         })
-    }, [socket]);
+    }
+    
+    useEffect(() => {
+        console.log("KEY>>", key)
+        socket.on('message', (data) => {
+            console.log("Key in socket: ", key)
+            const ans = DoDecrypt(data.text, data.username, key);
+            dispatchProcess(key, ans, data.text);
+            // console.log(ans)
+            let temp = messages;
+            temp.push({
+                userId: data.userId,
+                username: data.username,
+                text: ans,
+            })
+            setMessages([...temp])
+        })
+        
+    }, [key]);
 
     const sendData = () => {
         // console.log(text)
         if (!text) return
 
         const ans = DoEncrypt(text, key)
+        console.log('to send>>', ans)
         socket.emit('chat', ans)
         setText('');
     }
+
 
     const messagesEndRef = useRef(null)
     const scrollToBottom = () => {

@@ -20,9 +20,9 @@ const Process = () => {
     }
     return (
         <div className="process">
-            <h5>
-                Secret Key: <span>"obvwoqcbv21801f19d0zibcoavwpnq"</span>
-            </h5>
+            {/* <h5>
+                Secret Key: <span>{state.encrypt}</span>
+            </h5> */}
             <div className="incomming">
                 <h4>Incomming Data</h4>
                 <p>{state.cypher}</p>
