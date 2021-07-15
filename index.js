@@ -17,9 +17,9 @@ app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 router.post('/api/getRoomKey', (req, res) => {
-    console.log(req.body)
-    // computations
-    let toSend= {key: "sample key"}
+    let n = req.body.roomName
+    let x = users.getRoomKey(n)
+    let toSend= {key: x}
    
     res.status(200).send(toSend);
 })

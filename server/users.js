@@ -18,7 +18,12 @@ const userJoin = (id, username, room) => {
 //finds the current user
 const getCurrentUser = (id)=> users.find((user)=>user.id === id)
 
-const getRoomKey = (room_name) => rooms.find(room_name => rooms.roomname === room_name).roomkey;
+const getRoomKey = (room_name) => {
+    let gotKey = rooms.find(x => x.roomname === room_name).roomkey;
+    return gotKey;
+}
+
+const logRooms = () => console.log(rooms);
 
 const userLeave = (id) => {
     const index = users.findIndex((user) => user.id === id);
@@ -37,6 +42,7 @@ module.exports = {
     userLeave,
     getCurrentUser,
     getRoomKey,
+    logRooms,
 }
 
 

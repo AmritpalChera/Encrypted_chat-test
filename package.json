@@ -3,7 +3,7 @@
   "version": "1",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "nodemon index.js"
   },
   "author": "AmritpalChera <cheraamritpal@gmail.com>",
   "license": "MIT",

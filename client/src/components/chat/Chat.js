@@ -33,12 +33,12 @@ const Chat = (props) => {
         getRoomKey()
       }, [])
     
-    console.log("Chat Key>>", key)
     
     useEffect(() => {
+        console.log("Chat Key: ", key)
         socket.on('message', (data) => {
-            
-            const ans = DoDecrypt(data.text, data.username, roomname);
+            console.log("Key: ", key)
+            const ans = DoDecrypt(data.text, data.username, key);
             dispatchProcess(false, ans, data.text);
             // console.log(ans)
             let temp = messages;
@@ -55,7 +55,7 @@ const Chat = (props) => {
         // console.log(text)
         if (!text) return
 
-        const ans = DoEncrypt(text)
+        const ans = DoEncrypt(text, key)
         socket.emit('chat', ans)
         setText('');
     }
