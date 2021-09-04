@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import io from 'socket.io-client';
 import axios from './axios'
 import { useEffect } from 'react';
+import {JSEncrypt} from 'jsencrypt'
 
 const DEV_DOMAIN = 'http://localhost:8000';
 const PUB_DOMAIN = 'https://encrypted-chat-314720.uk.r.appspot.com';
@@ -19,7 +20,7 @@ const socket = io(DEV_DOMAIN, {
 export let roomKey = "";
 
 const AppMain = (props) => {
-
+  const encrypt = new JSEncrypt()
 
   const getRoomKey = () => {
       axios.post('/api/getRoomKey', { roomName: props.match.params.roomname })
